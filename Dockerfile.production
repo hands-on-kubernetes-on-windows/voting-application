@@ -17,6 +17,10 @@ RUN msbuild /p:DeployOnBuild=true /p:PublishProfile=$env:PUBLISH_PROFILE /p:Conf
 
 FROM mcr.microsoft.com/dotnet/framework/aspnet:4.8-windowsservercore-ltsc2019 AS runtime
 
+# Copy EF6 migration tools
+WORKDIR /ef6
+COPY --from=build /app/packages/EntityFramework.6.3.0/tools/net45/any/ .
+
 # Ensure that proper EventLog log is created which is used by Serilog
 RUN powershell.exe -Command New-EventLog -LogName VotingApplication -Source VotingApplication
 
