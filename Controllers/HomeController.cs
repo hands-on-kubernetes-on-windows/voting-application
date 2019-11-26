@@ -41,11 +41,12 @@
         public ActionResult StressCpu([FromUri] int value)
         {
             this.Response.StatusCode = (int)HttpStatusCode.Accepted;
+            var host = Dns.GetHostEntry(string.Empty).HostName;
 
             if (value < 0)
             {
                 this.cpuStressWorker.Disable();
-                return this.Json(new { status = $"Stressing CPU turned off" }, JsonRequestBehavior.AllowGet);
+                return this.Json(new { host, status = $"Stressing CPU turned off" }, JsonRequestBehavior.AllowGet);
             }
 
             if (value > 100)
@@ -54,7 +55,7 @@
             }
 
             this.cpuStressWorker.Enable(value);
-            return this.Json(new { status = $"Stressing CPU at {value}% level" }, JsonRequestBehavior.AllowGet);
+            return this.Json(new { host, status = $"Stressing CPU at {value}% level" }, JsonRequestBehavior.AllowGet);
         }
     }
 }
