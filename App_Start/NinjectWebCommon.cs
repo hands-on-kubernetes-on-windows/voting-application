@@ -74,6 +74,8 @@ namespace VotingApplication.App_Start
 
             kernel.Bind<VotingApplicationContext>().ToProvider(typeof(VotingApplicationContextFactory)).InRequestScope();
             kernel.Bind<IDateTimeProvider>().To<DateTimeProvider>().InRequestScope();
+
+            kernel.Bind<ICpuStressWorker>().To<CpuStressWorker>().InSingletonScope();
         }
     }
 }

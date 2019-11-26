@@ -1,6 +1,8 @@
 ﻿namespace VotingApplication.Controllers
 {
     using System.Linq;
+    using System.Net;
+    using System.Web.Http;
     using System.Web.Mvc;
     
     using Ninject.Extensions.Logging;
@@ -11,13 +13,13 @@
     public class HomeController : Controller
     {
         private readonly VotingApplicationContext db;
-        private readonly IDateTimeProvider dateTimeProvider;
+        private readonly ICpuStressWorker cpuStressWorker;
         private readonly ILogger log;
 
-        public HomeController(VotingApplicationContext db, IDateTimeProvider dateTimeProvider, ILogger log)
+        public HomeController(VotingApplicationContext db, ICpuStressWorker cpuStressWorker, ILogger log)
         {
             this.db = db;
-            this.dateTimeProvider = dateTimeProvider;
+            this.cpuStressWorker = cpuStressWorker;
             this.log = log;
         }
 
@@ -34,6 +36,25 @@
             }
 
             return this.RedirectToAction("Results", "Surveys", new { id = defaultSurvey.Id });
+        }
+
+        public ActionResult StressCpu([FromUri] int value)
+        {
+            this.Response.StatusCode = (int)HttpStatusCode.Accepted;
+
+            if (value < 0)
+            {
+                this.cpuStressWorker.Disable();
+                return this.Json(new { status = $"Stressing CPU turned off" }, JsonRequestBehavior.AllowGet);
+            }
+
+            if (value > 100)
+            {
+                value = 100;
+            }
+
+            this.cpuStressWorker.Enable(value);
+            return this.Json(new { status = $"Stressing CPU at {value}% level" }, JsonRequestBehavior.AllowGet);
         }
     }
 }

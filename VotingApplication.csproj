@@ -190,8 +190,10 @@
     <Compile Include="Controllers\SurveysController.cs" />
     <Compile Include="Controllers\VotesController.cs" />
     <Compile Include="Factories\VotingApplicationContextFactory.cs" />
+    <Compile Include="Services\CpuStressWorker.cs" />
     <Compile Include="Services\DateTimeProvider.cs" />
     <Compile Include="Interfaces\IDateTimeProvider.cs" />
+    <Compile Include="Interfaces\ICpuStressWorker.cs" />
     <Compile Include="ViewModels\OptionResult.cs" />
     <Compile Include="ViewModels\SurveyResult.cs" />
   </ItemGroup>
