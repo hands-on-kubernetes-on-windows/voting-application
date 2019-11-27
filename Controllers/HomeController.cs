@@ -14,12 +14,14 @@
     {
         private readonly VotingApplicationContext db;
         private readonly ICpuStressWorker cpuStressWorker;
+        private readonly IVoteLogManager voteLogManager;
         private readonly ILogger log;
 
-        public HomeController(VotingApplicationContext db, ICpuStressWorker cpuStressWorker, ILogger log)
+        public HomeController(VotingApplicationContext db, ICpuStressWorker cpuStressWorker, IVoteLogManager voteLogManager, ILogger log)
         {
             this.db = db;
             this.cpuStressWorker = cpuStressWorker;
+            this.voteLogManager = voteLogManager;
             this.log = log;
         }
 
@@ -56,6 +58,14 @@
 
             this.cpuStressWorker.Enable(value);
             return this.Json(new { host, status = $"Stressing CPU at {value}% level" }, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult VotingLog()
+        {
+            this.ViewBag.Title = "Kubernetes on Windows Voting Application - Voting Log";
+            this.ViewBag.VotingLog = this.voteLogManager.Get();
+
+            return this.View();
         }
     }
 }

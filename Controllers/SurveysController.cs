@@ -17,12 +17,14 @@
     {
         private readonly VotingApplicationContext db;
         private readonly IDateTimeProvider dateTimeProvider;
+        private readonly IVoteLogManager voteLogManager;
         private readonly ILogger log;
 
-        public SurveysController(VotingApplicationContext db, IDateTimeProvider dateTimeProvider, ILogger log)
+        public SurveysController(VotingApplicationContext db, IDateTimeProvider dateTimeProvider, IVoteLogManager voteLogManager, ILogger log)
         {
             this.db = db;
             this.dateTimeProvider = dateTimeProvider;
+            this.voteLogManager = voteLogManager;
             this.log = log;
         }
 
@@ -188,6 +190,7 @@
                     OptionId = optionId
                 };
 
+                this.voteLogManager.Append(vote);
                 this.db.Votes.Add(vote);                
             }
 

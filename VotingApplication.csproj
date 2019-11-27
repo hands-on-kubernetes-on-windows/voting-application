@@ -191,6 +191,8 @@
     <Compile Include="Controllers\VotesController.cs" />
     <Compile Include="Factories\VotingApplicationContextFactory.cs" />
     <Compile Include="Services\CpuStressWorker.cs" />
+    <Compile Include="Interfaces\IVoteLogManager.cs" />
+    <Compile Include="Services\VoteLogManager.cs" />
     <Compile Include="Services\DateTimeProvider.cs" />
     <Compile Include="Interfaces\IDateTimeProvider.cs" />
     <Compile Include="Interfaces\ICpuStressWorker.cs" />
@@ -249,6 +251,7 @@
     <Content Include="Views\Surveys\Index.cshtml" />
     <Content Include="Views\Surveys\Results.cshtml" />
     <Content Include="Views\Surveys\Vote.cshtml" />
+    <Content Include="Views\Home\VotingLog.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
