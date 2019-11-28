@@ -1,5 +1,6 @@
 ﻿namespace VotingApplication.Controllers
 {
+    using System;
     using System.Linq;
     using System.Net;
     using System.Web.Http;
@@ -66,6 +67,11 @@
             this.ViewBag.VotingLog = this.voteLogManager.Get();
 
             return this.View();
+        }
+
+        public ActionResult TestException()
+        {
+            throw new InvalidOperationException("This action always throws an exception!");
         }
     }
 }
