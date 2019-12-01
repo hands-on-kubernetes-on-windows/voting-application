@@ -70,6 +70,7 @@ namespace VotingApplication.App_Start
                 .ReadFrom.AppSettings()
                 .Enrich.FromLogContext()
                 .WriteTo.EventLog(source: "VotingApplication", logName: "VotingApplication", manageEventSource: false)
+                .WriteTo.Trace()
                 .CreateLogger();
 
             kernel.Bind<VotingApplicationContext>().ToProvider(typeof(VotingApplicationContextFactory)).InRequestScope();
