@@ -308,6 +308,7 @@
     <Content Include="Views\Surveys\Results.cshtml" />
     <Content Include="Views\Surveys\Vote.cshtml" />
     <Content Include="Views\Home\VotingLog.cshtml" />
+    <Content Include="telegraf.conf" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

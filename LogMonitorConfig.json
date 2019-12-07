@@ -30,6 +30,12 @@
         "includeSubdirectories": true
       },
       {
+        "type": "File",
+        "directory": "c:\\telegraf",
+        "filter": "*.log",
+        "includeSubdirectories": false
+      },
+      {
         "type": "ETW",
         "providers": [
           {
