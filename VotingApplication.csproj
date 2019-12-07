@@ -105,6 +105,9 @@
     <Reference Include="Ninject.Web.Mvc, Version=3.3.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
       <HintPath>packages\Ninject.MVC5.3.3.0\lib\net45\Ninject.Web.Mvc.dll</HintPath>
     </Reference>
+    <Reference Include="Prometheus.NetStandard, Version=3.0.0.0, Culture=neutral, PublicKeyToken=a243e9817ba9d559, processorArchitecture=MSIL">
+      <HintPath>packages\prometheus-net.3.3.0\lib\net461\Prometheus.NetStandard.dll</HintPath>
+    </Reference>
     <Reference Include="Serilog, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
       <HintPath>packages\Serilog.2.9.0\lib\net46\Serilog.dll</HintPath>
     </Reference>

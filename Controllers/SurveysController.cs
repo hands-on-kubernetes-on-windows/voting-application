@@ -9,12 +9,20 @@
 
     using Ninject.Extensions.Logging;
 
+    using Prometheus;
+
     using VotingApplication.Interfaces;
     using VotingApplication.Models;
     using VotingApplication.ViewModels;
 
     public class SurveysController : Controller
     {
+        private static readonly Counter DbAddedVotesCount = Metrics
+            .CreateCounter("votingapplication_db_added_votes", "Number of votes added to the database.");
+
+        private static readonly Histogram GetSurveyResultOperationDuration = Metrics
+            .CreateHistogram("votingapplication_getsurveyresult_duration_seconds", "Histogram for duration of GetSurveyResult operation.");
+
         private readonly VotingApplicationContext db;
         private readonly IDateTimeProvider dateTimeProvider;
         private readonly IVoteLogManager voteLogManager;
@@ -191,7 +199,8 @@
                 };
 
                 this.voteLogManager.Append(vote);
-                this.db.Votes.Add(vote);                
+                this.db.Votes.Add(vote);
+                DbAddedVotesCount.Inc();
             }
 
             await this.db.SaveChangesAsync();
@@ -213,7 +222,11 @@
                 return this.HttpNotFound();
             }
 
-            var result = this.GetSurveyResult(survey);
+            SurveyResult result;
+            using (GetSurveyResultOperationDuration.NewTimer())
+            {
+                result = this.GetSurveyResult(survey);
+            }
 
             return this.View(result);
         }
